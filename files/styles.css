@@ -1,0 +1,21 @@
+.layout {
+width: 1024px; 
+margin: auto; 
+text-align: center;
+margin-top: 35px;}
+.sz{
+width: 512px;
+margin: auto;}
+#star{
+margin-top: 45px;
+margin-bottom: 45px;
+-webkit-border-radius: 90px;
+-moz-border-radius:90px;
+border-radius:90px;}
+#spin-loader{
+margin-top: 20px;}
+.mememe{
+margin-bottom: 25px;}
+a{
+	border-bottom: 1px solid;
+}
