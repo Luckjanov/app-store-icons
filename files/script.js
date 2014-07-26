@@ -7,9 +7,11 @@ var app_link;
 var target = document.getElementById('foo');
 function get_id(apps_link)
 {
-  var regex_id = /id[\d]+/;
-  apps_link.match(regex_id);
-  return apps_link.match(/[\d]+/);
+  Pace.start;
+  var regex_id = /(id)([\d]+)/;
+  apps_link = apps_link.match(regex_id)
+  if(apps_link == null) return;
+  return apps_link[2]
 }
 
 function get_lang(app_link)
@@ -26,6 +28,7 @@ function draw_content()
   $('#star').attr('src', img_url);
   $('#star').attr('alt', app_name);
   window.document.title = app_name;
+
   $('#star').load(function() // Icon is loaded
   {
     // Setting icon's corners
@@ -49,7 +52,7 @@ function load_content()
   $.getJSON(request_link + '&callback=?', function(json) 
   {
     // There is no such app
-    if (json.resultCount == 0 || json.results[0].kind != 'software') return;
+    if (json.resultCount == 0 || json.results[0].kind != 'software') { return;}
 
     json = json.results
     img_url = json[0].artworkUrl100;
@@ -62,7 +65,6 @@ function load_content()
     app_name = json[0].trackName;
     draw_content();
     state_of_page = {app_link: app_link, img_url: img_url, app_name: app_name};
-    history.pushState(state_of_page, app_name, '/' + lang + '/' + app_id);
   });
 }
 
