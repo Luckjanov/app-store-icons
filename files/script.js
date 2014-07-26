@@ -1,32 +1,10 @@
-var opts = {
-  lines: 10, // The number of lines to draw
-  length: 4, // The length of each line
-  width: 1, // The line thickness
-  radius: 5, // The radius of the inner circle
-  corners: 0, // Corner roundness (0..1)
-  rotate: 0, // The rotation offset
-  color: '#000', // #rgb or #rrggbb
-  speed: 1, // Rounds per second
-  trail: 60, // Afterglow percentage
-  shadow: false, // Whether to render a shadow
-  hwaccel: false, // Whether to use hardware acceleration
-  className: 'spinner', // The CSS class to assign to the spinner
-  zIndex: 2e9, // The z-index (defaults to 2000000000)
-  top: 'auto', // Top position relative to parent in px
-  left: 'auto' // Left position relative to parent in px
-};
-
 // Data section
 var itunes_link = 'http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsLookup?country=';
 var itunes_link_id_attribute = '&id=';
 var app_name;
-var border_radius;
-var state_of_page; // json savings for history
 var img_url;
 var app_link;
-var reload;
-  var target = document.getElementById('foo');
-  var spinner = new Spinner(opts)
+var target = document.getElementById('foo');
 function get_id(apps_link)
 {
   var regex_id = /id[\d]+/;
@@ -44,7 +22,6 @@ function get_lang(app_link)
 
 function draw_content()
 {
-  spinner.spin(target);
   if($('#itunes-link').val() != app_link) {$('#itunes-link').val(app_link);}
   $('#star').attr('src', img_url);
   $('#star').attr('alt', app_name);
@@ -84,7 +61,6 @@ function load_content()
     if(img_url.match(/tif$/)) return;
     app_name = json[0].trackName;
     draw_content();
-    spinner.stop() ;
     state_of_page = {app_link: app_link, img_url: img_url, app_name: app_name};
     history.pushState(state_of_page, app_name, '/' + lang + '/' + app_id);
   });
@@ -120,7 +96,7 @@ window.addEventListener('popstate', function(event) {
   if(!event.state && !reload)
   {
     app_link = "";
-    img_url = "../blue-print.png";
+    img_url = "blue-print.png";
     app_name = "Посмотреть иконку";
   }
   else
@@ -130,6 +106,5 @@ window.addEventListener('popstate', function(event) {
     app_name = event.state.app_name;
   }
   draw_content();
-  spinner.stop();
   reload = false;
 });
