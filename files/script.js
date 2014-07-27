@@ -7,7 +7,7 @@ var app_link;
 var target = document.getElementById('foo');
 function get_id(apps_link)
 {
-  Pace.start;
+  Pace.start()
   var regex_id = /(id)([\d]+)/;
   apps_link = apps_link.match(regex_id)
   if(apps_link == null) return;
@@ -40,6 +40,7 @@ function draw_content()
     $(this).css('-moz-border-radius', border_radius);
     $(this).css('border-radius', border_radius);
   });
+
 }
 
 function load_content()
@@ -65,6 +66,7 @@ function load_content()
     app_name = json[0].trackName;
     draw_content();
     state_of_page = {app_link: app_link, img_url: img_url, app_name: app_name};
+    Pace.stop()
   });
 }
 
