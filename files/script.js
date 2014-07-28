@@ -5,6 +5,14 @@ var app_name;
 var img_url;
 var app_link;
 var target = document.getElementById('foo');
+var drop;
+
+drop = new Drop({
+  target: document.querySelector('.drop-target'),
+  content: 'Welcome to the future!',
+  position: 'bottom left',
+  openOn: 'click'
+});
 function get_id(apps_link)
 {
   Pace.start()
