@@ -1,21 +1,45 @@
 .layout {
-width: 1024px; 
-margin: auto; 
-text-align: center;
-margin-top: 35px;}
+	width: 1024px; 
+	margin: auto; 
+	text-align: center;
+	margin-top: 35px;
+}
+
 .sz{
-width: 512px;
-margin: auto;}
+	width: 512px;
+	margin: auto;
+}
+
+.helpme{
+	font-size: 22pt;
+	margin-top: 3px;
+	color: #a39e9e;
+}
+
+.helpme:hover{ 
+	color:#9cc4e6;
+	cursor: pointer;
+}
+
+#itunes-link{
+	width: 470px;
+	float: left;
+}
+
 #star{
-margin-top: 45px;
-margin-bottom: 45px;
--webkit-border-radius: 90px;
--moz-border-radius:90px;
-border-radius:90px;}
+	margin-top: 45px;
+	margin-bottom: 45px;
+	-webkit-border-radius: 90px;
+	-moz-border-radius:90px;
+	border-radius:90px;
+}
+
+
 
 .mememe{
-margin-bottom: 25px;
+	margin-bottom: 25px;
 }
+
 a{
 	border-bottom: 1px solid;
 }
