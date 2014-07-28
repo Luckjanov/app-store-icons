@@ -38,7 +38,7 @@ function draw_content()
     else if(width == 512) border_radius = 90;
     $(this).css('-webkit-border-radius', border_radius);
     $(this).css('-moz-border-radius', border_radius);
-    $(this).css('border-radius', border_radius);
+    $(this).css('border', '1px solid');
   });
 
 }
