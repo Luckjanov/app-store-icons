@@ -1,8 +1,17 @@
-// Data section
-var itunes_link = 'http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsLookup?country=';
-var itunes_link_id_attribute = '&id=';
-var target = document.getElementById('foo');
+// Entry point:
+$().ready(function () {
+  parse_url(); //does current url contain app id? if so show icon.
 
+  // Monitoring changes in text-field
+  $('#itunes-link').bind('textchange', function () {
+    load_content( $(this).val() );    
+  });
+
+  // Select text-field value after click
+  $('input[type=text]').click(function() {$(this).select();});
+});
+
+// HELPERS:
 function get_id(id_source) {
   var regex_id = /(id)([\d]+)/;
   result = id_source.match(regex_id)
@@ -26,26 +35,22 @@ function icon1024(small_size_url) {
   return url_1024_size;
 }
 
-function draw_content(screen_title, image_url) {
-  $('#star').attr('src', image_url);
-  $('#star').attr('alt', screen_title);
-  window.document.title = screen_title;
-
-  $('#star').load(function() { // Icon is loaded 
-    // Setting icon border
-    var img = document.getElementById('star');
-    if(img.clientWidth == 1024) {
-      border_radius = 180;
-    }
-    else if(img.clientWidth == 512) {
-      border_radius = 90;
-    }
-    $(this).css('border', '1px solid');
-    $(this).css('border-radius', border_radius + 'px');
-  });
+function parse_url(){
+  var virgin_pattern_id = /[\d]+$/;
+  var virgin_pattern_lang = /\/([\w]+)\//;
+  var current_id = current_lang = location.href;
+  console.log("current_id: " + current_id);
+  current_id = current_id.match( virgin_pattern_id );
+  current_lang = current_lang.match( virgin_pattern_lang );
+  if(current_lang && current_id) {
+    load_content( 'https://itunes.apple.com/' + current_lang[1] + '/app/id' + current_id );
+  }  
 }
 
 function load_content(app_link) {
+  var itunes_link = 'http://ax.itunes.apple.com/WebObjects/MZStoreServices.woa/wa/wsLookup?country=';
+  var itunes_link_id_attribute = '&id=';
+
   var app_id = get_id(app_link);
   if(!app_id) {
     console.log("Can't find id in provided URL.");
@@ -71,8 +76,8 @@ function load_content(app_link) {
 
     img_url = icon1024(img_url);
 
-    // Icon of app is .tif
-    if(img_url.match(/tif$/)) {
+    if(img_url.match(/tif$/)) { // code block will never be executed
+      console.log("Icon of app is .tif format");
       return;
     }
     app_name = json[0].trackName;
@@ -80,23 +85,21 @@ function load_content(app_link) {
   });
 }
 
-$().ready(function () {
-  // If url isn't virgin
-  var virgin_pattern_id = /[\d]+$/;
-  var virgin_pattern_lang = /\/([\w]+)\//;
-  var current_id = current_lang = location.href;
-  console.log("current_id: " + current_id);
-  current_id = current_id.match(virgin_pattern_id);
-  current_lang = current_lang.match(virgin_pattern_lang);
-  if(current_lang && current_id) {
-    load_content( 'https://itunes.apple.com/' + current_lang[1] + '/app/id' + current_id );
-  }
+function draw_content(screen_title, image_url) {
+  $('#star').attr('src', image_url);
+  $('#star').attr('alt', screen_title);
+  window.document.title = screen_title;
 
-  // Monitoring changes in text-field
-  $('#itunes-link').bind('textchange', function () {
-    load_content( $(this).val() );    
+  $('#star').load(function() { // Icon is loaded 
+    // Setting icon border
+    var img = document.getElementById('star');
+    if(img.clientWidth == 1024) {
+      border_radius = 180;
+    }
+    else if(img.clientWidth == 512) {
+      border_radius = 90;
+    }
+    $(this).css('border', '1px solid');
+    $(this).css('border-radius', border_radius + 'px');
   });
-
-  // Select text-field value after click
-  $('input[type=text]').click(function() {$(this).select();});
-});
+}
